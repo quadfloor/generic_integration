@@ -20,5 +20,4 @@ Current support:
 - Microsoft SQL Server
 
 
-
 (c) Quadfloor Software

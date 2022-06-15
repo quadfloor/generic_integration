@@ -1,0 +1,50 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.9.4/libexec/bin/yarn.js add moment
+
+PATH: 
+  /usr/local/share/npm/bin:/Applications/CMake.app/Contents/bin:/Users/renato/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public
+
+Yarn version: 
+  1.9.4
+
+Node version: 
+  12.5.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/renato/workspace/dev/github/generic_integration/package.json: Unexpected token } in JSON at position 291
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:92:30)
+      at /usr/local/Cellar/yarn/1.9.4/libexec/lib/cli.js:103:13
+
+npm manifest: 
+  {
+    "name": "generic_integration",
+    "version": "3.0.0",
+    "description": "Generic ERP integration agent",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "export NODE_ENV=development && babel-node --ignore=' ' ./src/index.js",
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/quadfloor/generic_integration.git"
+    },
+    "author": "Renato Mendes",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/quadfloor/generic_integration/issues"
+    },
+    "homepage": "https://github.com/quadfloor/generic_integration#readme"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

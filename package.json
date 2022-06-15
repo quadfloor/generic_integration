@@ -1,0 +1,23 @@
+{
+  "name": "generic_integration",
+  "version": "3.0.0",
+  "description": "Generic ERP integration agent",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "export NODE_ENV=development && babel-node --ignore=' ' ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quadfloor/generic_integration.git"
+  },
+  "author": "Renato Mendes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quadfloor/generic_integration/issues"
+  },
+  "homepage": "https://github.com/quadfloor/generic_integration#readme",
+  "dependencies": {
+    "moment": "^2.29.3"
+  }
+}
