@@ -4,8 +4,12 @@
   "description": "Generic ERP integration agent",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "export NODE_ENV=development && babel-node --ignore=' ' ./src/index.js"
+    "babel": "node scripts/babel.js",
+    "start": "export NODE_ENV=development && babel-node --ignore=' ' ./src/index.js",
+    "winstart": "set NODE_ENV=development && babel-node --ignore=' ' ./src/index.js",
+    "build": "webpack --config ./config/webpack.config.js",
+    "build-server": "webpack --config ./config/webpack.config.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -18,6 +22,14 @@
   },
   "homepage": "https://github.com/quadfloor/generic_integration#readme",
   "dependencies": {
-    "moment": "^2.29.3"
+    "moment": "^2.29.3",
+    "tedious": "^14.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/node": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
   }
 }
