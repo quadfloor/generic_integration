@@ -1,30 +1,25 @@
-import { sqlConnect } from "./access/mssql/sql.js";
+import { sqlSelect } from "./access/mssql";
+
+const DEBUG = true;
 
 const checkInterval = async () => {
   try {
-    let config = {
-      server: "192.168.1.212",
-      authentication: {
-        type: "default",
-        options: {
-          userName: "test",
-          password: "test",
-        },
-      },
-      options: {
-        port: 1433, // Default Port
-      },
-    };
+    if (DEBUG) console.log("DEBUG (checkInterval): Timer function");
 
-    let result = await sqlConnect(config);
+    if (DEBUG) console.log("DEBUG (checkInterval): Will select from origin table");
+    let result = await sqlSelect("TEST", ["F1", "F2"], "A > 0", 1);
 
-    if (result) console.log("MSSQL Connection succeeded.");
+    console.log(result);
+    if (DEBUG) console.log("DEBUG (checkInterval): Got records. Will write to Quadfloor.");
+
   } catch (e) {
-    console.log("Connection fail.");
+    console.log("ERROR (checkInterval):");
     throw new Error(e);
   }
 };
 
 export const exec = () => {
-  setInterval(checkInterval, 1000);
+  if (DEBUG) console.log("DEBUG (exec): Will start timer");
+checkInterval();
+//  setInterval(checkInterval, 1000);
 };

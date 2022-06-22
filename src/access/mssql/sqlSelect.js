@@ -1,15 +1,15 @@
+import sqlConnect from "./sqlConnect";
+
 const DEBUG = true;
 
-const sqlSelect = async (context, collection, query, fields, sort, limit) => {
+const sqlSelect = async (table, fields, where, sort, limit) => {
   if (DEBUG) {
-    console.log("================= START DEBUG BLOCK ================");
     console.log("DEBUG sqlSelect()");
-    console.log("context: " + (context ? context.company._id : context));
-    console.log("collection: " + collection);
-    console.log("query:");
-    console.log(query);
+    console.log("table: " + table);
     console.log("fields:");
     console.log(fields);
+    console.log("where:");
+    console.log(where);
     console.log("sort:");
     console.log(sort);
     console.log("limit:");
@@ -17,9 +17,22 @@ const sqlSelect = async (context, collection, query, fields, sort, limit) => {
   }
 
   try {
-    console.log("sqlSelect");
+    let conn = await sqlConnect();
+
+    let str = "SELECT ";
+    str += fields.join(",");
+
+    if (where) str += " WHERE " + where;
+
+    if (sort) str += " SORT " + sort;
+
+    if (limit) str += " LIMIT " + limit;
+
+    if (DEBUG) console.log("DEBUG (sqlSelect): " + str);
+
+    sqlInvoke(str);
   } catch (e) {
-    console.log("(sqlSelect) ERROR: " + e.message);
+    console.log("ERROR (sqlSelect): " + e.message);
     throw e;
   }
 };

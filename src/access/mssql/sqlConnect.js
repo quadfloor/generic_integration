@@ -1,45 +1,55 @@
 import { Connection, Request } from "tedious";
 
+import { sqlConfig } from ".";
+
 const DEBUG = true;
 
 let connection = null;
 
-const sqlConnect = async (config) => {
+const sqlConnect = async () => {
+  let config = sqlConfig.get();
+
   if (DEBUG) {
-    console.log("DEBUG sqlConnect()");
+    console.log("DEBUG sqlConnect(): configuration");
     console.log(config);
   }
 
-  try {
-    if (connection) {
-      console.log("Connection exists.");
-      console.log(connection);
-      return connection;
-    }
+  if (!config)
+    throw new Error("ERROR: sqlConnect(): No database configuration.");
 
-    var config = {
-      server: "192.168.1.212",
-      authentication: {
-        type: "default",
-        options: {
-          userName: "test",
-          password: "test",
-        },
-      },
-      options: {
-        port: 1433, // Default Port
-        trustServerCertificate: true,
-      },
-    };
+  console.log("Will connect");
 
-    let conn = new Connection(config);
+  let p = () => {
+    return new Promise((resolve, reject) => {
+      let conn = new Connection(config);
 
-    console.log("Will connect");
+      conn.connect();
 
-    let kkk = await conn.connect();
-    console.log("Connected");
-    console.log(kkk);
-    /*
+      conn.on("end", () => {
+        conn.close();
+      });
+
+      conn.on("connect", (err) => {
+        if (err) return reject(err);
+        resolve(conn);
+      });
+
+      connection.on("error", (err) => {
+        let msg =
+          "ERROR: sqlConnect: Error connecting to SQL Server database. Error: " +
+          err;
+        console.log(msg);
+        throw new Error(msg);
+
+        connection = null;
+      });
+    });
+  };
+
+  let connection = await p();
+  console.log("Connected");
+  console.log(connection);
+  /*
 
    connection.on("connect", (err) => {
       if (err) throw new Error(err);
@@ -64,11 +74,7 @@ const sqlConnect = async (config) => {
       connection = null;
     });
 */
-    return connection;
-  } catch (e) {
-    console.log("(sqlConnect) ERROR: " + e.message);
-    throw e;
-  }
+  return connection;
 };
 
 export default sqlConnect;
